@@ -9,12 +9,13 @@ const Form = (props) => {
 
     const submitTodoHandler = (e) => {
         e.preventDefault();
-        // console.log('1111', );
         let todos = props.todos;
-        e.target.value && props.setTodos([
+        let inputText = props.inputText;
+        if (inputText) {
+          props.setTodos([
             ...todos, {text: props.inputText, completed: false, id: Math.floor(Math.random() * 1000) }
         ])
-
+      }
         props.setInputText('');
     }
 
@@ -23,10 +24,9 @@ const Form = (props) => {
     };
 
   return (
-    <form >
-        {/* value={props.inputText} очищает инпут после сабмита, так как по умолчанию пусто*/}
+    <form onSubmit={submitTodoHandler}>
       <input value={props.inputText} type="text" onChange={inputTextHandler}  className="todo-input" />
-      <button onClick={submitTodoHandler}  className="todo-button" type="submit">
+      <button   className="todo-button" type="submit">
         <i className="fas fa-plus-square"></i>
       </button>
       <div className="select">
