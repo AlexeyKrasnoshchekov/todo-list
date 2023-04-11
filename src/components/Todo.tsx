@@ -1,6 +1,7 @@
 import React from "react";
+import { ITodoProps } from "../types/data";
 
-const Todo = ({ text, todos, todo, setTodos }) => {
+const Todo = ({ text, todos, todo, setTodos }:ITodoProps) => {
   //events
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));

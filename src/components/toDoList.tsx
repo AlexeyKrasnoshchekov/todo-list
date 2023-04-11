@@ -1,7 +1,8 @@
 import React from "react";
-import Todo from "./Todo.js";
+import { ITodoListProps } from "../types/data.js";
+import Todo from "./Todo";
 
-const TodoList = ({ todos, setTodos, filteredTodos }) => {
+const TodoList = ({ todos, setTodos, filteredTodos }:ITodoListProps) => {
 
 
   // console.log('filteredTodos', filteredTodos);

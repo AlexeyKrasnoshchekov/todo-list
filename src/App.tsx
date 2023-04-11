@@ -1,19 +1,21 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import Form from "./components/Form.js";
-import TodoList from "./components/toDoList.js";
+import Form from "./components/Form";
+import TodoList from "./components/toDoList";
+import { ITodo } from './types/data';
 
-function App() {
+// function App() {
+  export const App:React.FC = () => {
   //state
 
   //поле ввода и его сохранение в стейт
   const [inputText, setInputText] = useState("");
   //список дел и его сохранение в стейт
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<ITodo[]>([]);
   //статус дел и его сохранение в стейт
   const [status, setStatus] = useState("all");
   //дела после фильтра
-  const [filteredTodos, setfilteredTodos] = useState([]);
+  const [filteredTodos, setfilteredTodos] = useState<ITodo[]>([]);
 
  
   
@@ -22,10 +24,10 @@ function App() {
   const filterHandler = () => {
     switch (status) {
       case "completed":
-        setfilteredTodos(todos.filter((todo) => todo.completed === true));
+        setfilteredTodos(todos.filter((todo:ITodo) => todo.completed === true));
         break;
       case "uncompleted":
-        setfilteredTodos(todos.filter((todo) => todo.completed === false));
+        setfilteredTodos(todos.filter((todo:ITodo) => todo.completed === false));
         break;
 
       default:
@@ -42,11 +44,12 @@ function App() {
 
   // get from Local
   const getLocalTodos = () => {
-    if (localStorage.getItem("todos") === null) {
+    let todosLS = localStorage.getItem("todos");
+    if (todosLS === null) {
       localStorage.setItem("todos", JSON.stringify([]));
     } else {
-      let todoLocal = JSON.parse(localStorage.getItem("todos"));
-      setTodos(todoLocal);
+      let todoLocal = todosLS && JSON.parse(todosLS);
+      todoLocal && setTodos(todoLocal);
     }
   };
 
@@ -65,7 +68,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>To do list 333</h1>
+        <h1>To do list</h1>
       </header>
       <Form
         todos={todos}
@@ -84,5 +87,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
